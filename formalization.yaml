@@ -1,0 +1,126 @@
+version: "v0.4"
+project:
+  name: "Erdős 365: Golomb's consecutive powerful nonsquares"
+  description: >-
+    An independent Lean 4 proof of the classical negative answer to the first
+    question of Erdős Problem 365. The consecutive integers 12167 and 12168
+    are powerful and neither is a square. The remaining polylogarithmic
+    counting question is represented as an unproved proposition, not as a
+    solution. No mathematical novelty or first-formalization priority is claimed.
+  authors: ["Alexander (AItoBit)"]
+  license: "Apache-2.0"
+  responsible_maintainers: ["Alexander (AItoBit)"]
+classification:
+  arxiv: ["math.NT", "math.LO"]
+  msc2020: ["11A25", "03B35"]
+sources:
+  - title: "Powerful Numbers"
+    authors: ["Solomon W. Golomb"]
+    id: "https://doi.org/10.2307/2317020"
+    type: "article"
+    location: "American Mathematical Monthly 77(8) (1970), 848–852"
+    relationship: "independently-proves"
+    note: >-
+      The counterexample is attributed to Golomb by the supplied PDF and the
+      indexed original article. Full original text was not accessible. Its
+      numerical facts are independently proved here from exact prime
+      factorizations and inequalities between successive squares.
+    author_endorsement: "not-contacted"
+  - title: "Erdős Problem 365 and discussion thread"
+    contributors:
+      - name: "Thomas Bloom"
+        role: "problem database editor"
+      - name: "Paul Erdős"
+        role: "problem proposer"
+    id: "https://www.erdosproblems.com/365"
+    type: "web discussion"
+    location: "https://www.erdosproblems.com/forum/thread/365"
+    relationship: "formalizes"
+    note: >-
+      Both pages of the user-supplied printout 365.pdf were read. The first
+      question is answered negatively; the second is a proposition only.
+      Live retrieval returned HTTP 403 on 6 October 2026. Forum comments are
+      separated from the problem statement in AUDIT.md.
+  - title: "Consecutive integer pairs of powerful numbers and related Diophantine equations"
+    authors: ["David T. Walker"]
+    type: "article"
+    id: "https://doi.org/10.1080/00150517.1976.12430562"
+    location: "https://fq.math.ca/Scanned/14-2/walker.pdf"
+    relationship: "background"
+    note: "All six pages read; its infinitude and classification theorems are not formalized."
+  - title: "Pairs of k-free Numbers, consecutive square-full Numbers"
+    authors: ["Thomas Reuss"]
+    type: "preprint"
+    id: "https://arxiv.org/abs/1212.3150v2"
+    relationship: "background"
+    note: >-
+      Theorem 4 gives the exponent 29/100 plus epsilon; its statement was
+      checked against the primary paper. This corrects the supplied forum's
+      tentative best-bound suggestion. Its full proof is not audited or formalized.
+related_formalizations:
+  - id: "https://github.com/golfyx/jsp-000301-lean/tree/ead5a5c54079c7b78acb57a6d83f158aa28daea2"
+    relationship: "independent"
+    note: >-
+      Earlier Apache-2.0 formalization by golfyx. Its README was inspected;
+      its Lean proof was not read or reused. No first-formalization claim.
+status:
+  scope: >-
+    Proves Golomb's pair and the negation of the universal square question.
+    Questions.lean defines the open polylogarithmic counting question without
+    proving it. Walker's infinite family and the analytic counting bounds are
+    not formalized. The Challenge also has full proofs, honoring the requested
+    ban on proof holes. Public Palomar full preflight and editorial review remain pending.
+  sorry_count: 0
+  sorry_in_definitions: 0
+  axioms: []
+automation:
+  methods:
+    - method: "agent"
+      models: ["GPT-6"]
+      framework: "OpenAI Codex"
+      tool_setup: "Lean compiler feedback; Mathlib source inspection; norm_num, nlinarith, omega"
+      cost:
+        wall_time: "One interactive preparation session on 6 October 2026"
+        spend_usd: "not tracked"
+        hardware: "CPU Linux execution environment"
+      prompting_notes: "Audit the exact source, freeze the statement, forbid proof holes and added axioms."
+  spend_usd: "not tracked"
+  notes: >-
+    AI drafted and checked the proof and English audit. The user selected the
+    author/maintainer name. No human expert review or unassisted authorship is claimed.
+fidelity:
+  divergences: >-
+    Uses the source's explicit square formulation; no equivalence with an
+    independently defined Pell-origin predicate is asserted. Uses a natural
+    exponent for the open bound; its informal equivalence to arbitrary fixed
+    real exponents is explained, but not formalized. Records all omitted
+    literature results and source-access limitations in AUDIT.md.
+review:
+  status: "AI-assisted self-assessment; no human expert review"
+  reviewers: []
+  notes: >-
+    Complete supplied PDF read; fixed statement audited clause by clause.
+    Lean build and axiom audit passed. Export comparison and independent
+    checkers passed locally without normal Comparator isolation; this is not
+    Palomar's complete mechanical preflight. See VERIFICATION.md.
+alignment:
+  namespace: "Erdos365"
+  statements:
+    - source: "Golomb's counterexample as recorded in 365.pdf, page 1"
+      lean: "Erdos365.golomb_pair"
+      module: "Solution"
+      status: "proved"
+      note: "Both numbers powerful, neither square; fixed explicit witness."
+    - source: "Erdős 365, first universal question, 365.pdf page 1"
+      lean: "Erdos365.square_question_false"
+      module: "Solution"
+      status: "proved"
+      note: "Direct negative answer; not the remaining open counting question."
+    - source: "Erdős 365, second question, 365.pdf page 1"
+      lean: "Erdos365.PolylogarithmicCountingQuestion"
+      module: "Questions"
+      status: "statement only"
+      note: "Unproved Prop, excluded from Comparator's theorem list."
+acknowledgements: >-
+  Golomb's mathematical counterexample; Mathlib contributors; Lean contributors;
+  Palomar's starter configuration scripts; OpenAI Codex. No copied earlier proof.
